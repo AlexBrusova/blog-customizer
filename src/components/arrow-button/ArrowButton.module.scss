@@ -11,6 +11,13 @@
 	background-color: #000000;
 	border-right: 1px;
 	transition: transform 0.5s ease;
+
+	&:hover {
+		background-color: #FFC802;
+	}
+	&:active {
+		background-color: #787878;
+	}
 }
 
 .container_open {
