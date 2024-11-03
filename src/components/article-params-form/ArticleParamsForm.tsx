@@ -64,7 +64,7 @@ export const ArticleParamsForm = ({ onChange }: Props) => {
 	}, []);
 	return (
 		<>
-			<ArrowButton onClick={handleClick} />
+			<ArrowButton isOpen={isOpen} onClick={handleClick} />
 			<aside ref={formRef} className={className}>
 				<form className={styles.form}
 				onSubmit={handleSubmitOptions}
