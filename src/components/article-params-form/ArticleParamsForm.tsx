@@ -21,12 +21,12 @@ type Props = {
 };
 
 export const ArticleParamsForm = ({ onChange }: Props) => {
-	const [isOpen, setOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const formRef = useRef<HTMLDivElement>(null);
 	const [params, setParams] = useState(defaultArticleState);
 
 	const handleClick = () => {
-		setOpen(!isOpen);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
 	function handleOptionChange(key: string, option: OptionType) {
@@ -46,25 +46,27 @@ export const ArticleParamsForm = ({ onChange }: Props) => {
 
 	let className = styles.container;
 
-	if (isOpen) {
+	if (isMenuOpen) {
 		className = className + ' ' + styles.container_open;
 	}
 
-	const handleClickOutside = (event: MouseEvent) => {
-		if (formRef.current && !formRef.current.contains(event.target as Node)) {
-			setOpen(false);
-		}
-	};
-
 	useEffect(() => {
+		if (!isMenuOpen) return;
+
+		const handleClickOutside = (event: MouseEvent) => {
+			if (formRef.current && !formRef.current.contains(event.target as Node)) {
+				setIsMenuOpen(false);
+			}
+		};
+
 		document.addEventListener('mousedown', handleClickOutside);
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, []);
+	}, [isMenuOpen]);
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={handleClick} />
+			<ArrowButton isOpen={isMenuOpen} onClick={handleClick} />
 			<aside ref={formRef} className={className}>
 				<form className={styles.form}
 				onSubmit={handleSubmitOptions}
